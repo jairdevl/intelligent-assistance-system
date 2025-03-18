@@ -38,20 +38,12 @@ signupForm.addEventListener('submit', async (e) => {
     const formData = new FormData(signupForm);
     formData.append('face_image', captureImage);
 
-    try {
-        const response = await fetch('/signup', {
-            method: 'POST',
-            body: formData
-        });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+    const response = await fetch('/signup', {
+        method: 'POST',
+        body: formData
+    });
 
-        const data = await response.json();
-        message.textContent = data.message || 'Sign up failed.';
-    } catch (error) {
-        console.error('Error during sign up:', error);
-        message.textContent = 'An error occurred during sign up: ' + error.message;
-    }
+    const data = await response.json();
+    message.textContent = data.message || 'Sign up failed.';
 });
