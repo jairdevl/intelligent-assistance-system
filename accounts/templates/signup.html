@@ -1,6 +1,6 @@
-<!--Load layout-->
+<!-- Load layout -->
 {% extends 'layout.html' %}
-<!--Load static files-->
+<!-- Load static files -->
 {% load static %}
 
 {% block content %}
@@ -10,12 +10,17 @@
 <div class="signup-container">
     <h2>Sign Up</h2>
     <form id="signup-form">
+        <label for="username">Username:</label>
         <input type="text" id="username" name="username" placeholder="Username" required>
+        
+        <label for="identification_number">Identification Number:</label>
         <input type="text" id="identification_number" name="identification_number" placeholder="Identification Number" required>
+        
         <div id="camera-container">
             <video id="video" width="100%" height="auto" autoplay></video>
             <canvas id="canvas" width="300" height="200"></canvas>
         </div>
+        
         <button type="button" id="capture-button">Capture</button>
         <button type="submit">Sign Up</button>
     </form>
