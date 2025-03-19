@@ -1,49 +1,29 @@
-// Get references to the video, canvas, and buttons
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const captureButton = document.getElementById('capture-button');
-const signupForm = document.getElementById('signup-form');
-const message = document.getElementById('message');
-let captureImage = null;
+// Signup.js Script for registration management with facial capture
+// Define global variable
+let videoElement;
+let canvasElement;
+let captureButton;
+let signupForm;
+let messageElement;
+let capturedImage;
+let cameraStream;
 
-// Access the camera and start the video stream
-navigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => {
-        video.srcObject = stream;
-    })
-    .catch(error => {
-        console.error('Error accessing camera:', error);
-        message.textContent = 'Camera not accessible. Please check permissions.';
-    });
+// Initialize application when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Getting references to elements
+    videoElement = document.getElementById('video');
+    canvasElement = document.getElementById('canvas');
+    captureButton = document.getElementById('capture-button');
+    signupForm = document.getElementById('signup-form');
+    messageElement = document.getElementById('message');
 
-// Capture image from the video stream
-captureButton.addEventListener('click', () => {
-    if (!video.srcObject) {
-        message.textContent = 'Please enable the camera.';
-        return;
-    }
-    const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, canvas.width, canvas.height); // Draw the video frame on the canvas
-    captureImage = canvas.toDataURL('image/png'); // Convert the canvas to a data URL
-    message.textContent = 'Face captured successfully.';
+    // Initialize camera
+    initializeCamera();
+
+    // Configure button events
+    setupButtonEvent();
 });
 
-// Handle form submission
-signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!captureImage) {
-        message.textContent = 'Please capture a face first.';
-        return;
-    }
-    const formData = new FormData(signupForm);
-    formData.append('face_image', captureImage);
-
-
-    const response = await fetch('/signup', {
-        method: 'POST',
-        body: formData
-    });
-
-    const data = await response.json();
-    message.textContent = data.message || 'Sign up failed.';
-});
+// Initializes the webcam and displays live video
+function initializeCamera() {
+}
