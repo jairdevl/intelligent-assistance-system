@@ -1,4 +1,3 @@
-// Signup.js Script for registration management with facial capture
 // Define global variable
 let videoElement;
 let canvasElement;
@@ -26,4 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initializes the webcam and displays live video
 function initializeCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            cameraStream = stream;
+            videoElement.srcObject = stream;
+            messageElement.textContent = "Camera initialized successfully!"
+        })
+        .catch(function(error) {
+            console.error("Failed to initialize camera:", error);
+            messageElement.textContent = "The camera could not be initialized. Please check your permissions. ";
+        });
 }
