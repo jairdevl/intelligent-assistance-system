@@ -1,67 +1,52 @@
-// Define global variable
-let videoElement;
-let canvasElement;
-let captureButton;
-let signupForm;
-let messageElement;
-let capturedImage;
-let cameraStream;
+// Get references to the video, canvas, and buttons
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const captureButton = document.getElementById('capture-button');
+const signupForm = document.getElementById('signup-form');
+const messageDiv = document.getElementById('message');
+let capturedImage = null;
 
-// Initialize application when DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Getting references to elements
-    videoElement = document.getElementById('video');
-    canvasElement = document.getElementById('canvas');
-    captureButton = document.getElementById('capture-button');
-    signupForm = document.getElementById('signup-form');
-    messageElement = document.getElementById('message');
 
-    // Initialize camera
-    initializeCamera();
+// Access the camera and start the video stream
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        video.srcObject = stream;
+        messageDiv.textContent = 'Camera access successful.';
+        
+    })
+    .catch((error) => {
+        console.error('Error accessing the camera:', error);
+        messageDiv.textContent = 'Camera not accessible. Please check your camera permissions.';
+    });
 
-    // Configure button events
-    setupButtonEvent();
-});
-
-// Initializes the webcam and displays live video
-function initializeCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            cameraStream = stream;
-            videoElement.srcObject = stream;
-            messageElement.textContent = "Camera initialized successfully!"
-        })
-        .catch(function(error) {
-            console.error("Failed to initialize camera:", error);
-            messageElement.textContent = "The camera could not be initialized. Please check your permissions. ";
-        });
-
-// Configure event elements iteratively
-function setupButtonListener() {
-    // Event listener for capture button
-    captureButton.addEventListener('click', captureButton);
-    // Event listener for signup form
-    signupForm.addEventListener('submit', signupForm);
-}
-
-// Capture image from video stream
-function captureImage() {
-    // Check if camera is active
-    if (!videoElement.srcObject) {
-        messageElement.textContent = "Camera is not active. Please initialize the camera first.";
+// Capture image from the video stream
+captureButton.addEventListener('click', () => {
+    if (!capturedImage) {
+        messageDiv.textContent = 'Please enable the camera and try again.';
         return;
     }
+    const context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, canvas.width, canvas.height); // Draw the video frame on the canvas
+    capturedImage = canvas.toDataURL('image/jpeg'); // Convert the canvas to a data URL
+    messageDiv.textContent = 'Image captured successfully.';
+});
 
-    // Get the context of the canvas
-    const context = canvasElement.getContext('2d');
-    // Draw the video frame on the canvas
-    context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-    // Capture the image
-    capturedImage = canvasElement.toDataURL('image/png');
-    messageElement.textContent = "Image captured successfully!";
-    canvasElement.style.display = 'block';
-}
+// Handle form submission
+signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!capturedImage) {
+        messageDiv.textContent = 'Please capture your face first.';
+        return;
+    }
+    const formData = new FormData(signupForm);
+    formData.append('face_image', capturedImage);
 
+    const response = await fetch('/signup', {
+        method: 'POST',
+        body: formData
+    });
 
-
-}
+    const data = await response.json();
+    messageDiv.textContent = data.message || 'Failed to sign up.';
+    
+});
