@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form id="signup-form">
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <div id="camera-container">
+            <video id="video" width="100%" height="auto" autoplay></video>
+            <canvas id="canvas" width="300" height="200"></canvas>
+        </div>
+        <button type="button" id="Capture-button">Capture</button>
+        <button type="submit">Sign Up</button>
+    </form>
+    <div id="message"></div>
+</div>
+
+<script src="{% static 'js/signup.js' %}"></script>
+
+{% endblock %}
