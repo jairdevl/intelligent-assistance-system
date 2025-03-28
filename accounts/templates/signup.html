@@ -8,6 +8,7 @@
     <h2>Sign Up</h2>
     <form id="signup-form">
         <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="number" id="number_identification" name="number_identification" placeholder="Number Identification" required>
         <div id="camera-container">
             <video id="video" width="100%" height="auto" autoplay></video>
             <canvas id="canvas" width="300" height="200"></canvas>
@@ -18,7 +19,7 @@
     <div id="message"></div>
 </div>
 
-<script src="{% static 'js/signup.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+<script src="{% static 'js/signup.js' %}"></script>
 
 {% endblock %}
