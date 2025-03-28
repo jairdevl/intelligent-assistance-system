@@ -14,7 +14,7 @@ def signup(request):
         number_identification = request.POST['number_identification']
 
         # Check if user already exists
-        if UserImages.objects.filter(number_identification=number_identification).exists():
+        if UserImages.objects.filter(number_identification=number_identification).exists() or User.objects.filter(username=username).exists():
             return JsonResponse({'status': 'error', 'message': 'User already exists!'})
 
         # Convert base64 image data to file
