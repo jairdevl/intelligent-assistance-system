@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 
 # Ignore all files in the user_images directory
-user_images/
+user_faces/
 
 ### Django ###
 *.log
