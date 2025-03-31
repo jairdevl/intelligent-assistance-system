@@ -6,13 +6,16 @@
 
 <div class="signin-container">
     <h2>Sign In</h2>
-    <div id="message" ></div>
-    <div id="camera-container">
-        <video id="video" width="100%" height="auto" autoplay playsinline></video>
-        <div id="face-outline"></div>
-        <div id="scanning-indicator">Scanning...</div>
-        <canvas id="canvas" width="300" height="200"></canvas>
-    </div>
+    <form id="signin-form">
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <div id="camera-container">
+            <video id="video" width="100%" height="auto" autoplay></video>
+            <canvas id="canvas" width="300" height="200"></canvas>
+        </div>
+        <button type="button" id="Capture-button">Capture Face</button>
+        <button type="submit">Sign In</button>
+    </form>
+    <div id="message"></div>
 </div>
 
 <link rel="stylesheet" href="{% static 'css/signin.css' %}">
