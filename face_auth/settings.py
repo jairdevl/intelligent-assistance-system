@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-ex#145$#jqwi4p#x2n=_e3ta8d)ncrici89t7t=2sul@bei3_n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'alaska-perspectives-circumstances-academy.trycloudflare.com']
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
