@@ -47,5 +47,12 @@ signupForm.onsubmit = async (e) => {
     });
 
     const data = await response.json();
-    messageDiv.innerText = data.message || 'Registration failed.';
+    if(data.status === 'success'){
+        messageDiv.innerText = data.message || 'Registration successful!';
+        if(data.redirect) {
+            window.location.href = data.redirect;
+        }
+    } else {
+        message.innerText = data.message || 'Login Failed.';
+    }
 }

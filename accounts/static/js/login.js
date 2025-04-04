@@ -46,12 +46,15 @@ loginForm.onsubmit = async (e) => {
     try {
         const response = await fetch('/login/', {
             method: 'POST',
-            body: formData
+            body: formData,
         });
 
         const data = await response.json();
-        if (data.success) {
+        if (data.status === 'success') {
             message.innerText = data.message || 'Login successful!';
+            if(data.redirect) {
+                window.location.href = data.redirect;
+            }
         } else {
             message.innerText = data.message || 'Login Failed.';
         }

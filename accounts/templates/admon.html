@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<div class="admon-container">
+    <h2>Admin</h2>
+    <nav>
+        <ul>
+            <li><a href="{% url 'admon' %}">Admin</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        </ul>
+    </nav>
+</div>
+    
+{% endblock %}

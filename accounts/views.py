@@ -1,7 +1,7 @@
 from math import exp
 import face_recognition
 import base64
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core.files.base import ContentFile
 from .models import UserImages, User
@@ -40,7 +40,7 @@ def signup(request):
             number_identification=number_identification
         )
 
-        return JsonResponse({'status': 'success', 'message': 'User created successfully!'})
+        return JsonResponse({'status': 'success', 'message': 'User created successfully!', 'redirect': '/admon/'})
 
     return render(request, 'signup.html')
 
@@ -92,8 +92,11 @@ def login(request):
         # Compare the faces
         match = face_recognition.compare_faces([stored_face_encoding], uploaded_face_encoding)
         if match[0]:
-            return JsonResponse({'status': 'success', 'message': 'Login successful!'})
+            return JsonResponse({'status': 'success', 'message': 'Login successful!', 'redirect': '/admon/'})
         else:
             return JsonResponse({'status': 'error', 'message': 'Face does not match!'})
-
     return render(request, 'login.html')
+
+@csrf_exempt
+def admon(request):
+    return render(request, 'admon.html')
