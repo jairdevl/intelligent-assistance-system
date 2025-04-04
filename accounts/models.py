@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class UserImages(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     number_identification = models.CharField(max_length=15, unique=True)
-    image = models.ImageField(upload_to='user_faces/')
+    face_image = models.ImageField(upload_to='user_faces/')
 
     def __str__(self):
         return self.user.username

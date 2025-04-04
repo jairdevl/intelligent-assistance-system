@@ -36,7 +36,7 @@ def signup(request):
 
         UserImages.objects.create(
             user=user,
-            image=face_image,
+            face_image=face_image,
             number_identification=number_identification
         )
 
@@ -97,4 +97,3 @@ def login(request):
             return JsonResponse({'status': 'error', 'message': 'Face does not match!'})
 
     return render(request, 'login.html')
-    
