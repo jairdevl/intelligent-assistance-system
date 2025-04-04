@@ -23,10 +23,32 @@ CaptureButton.addEventListener('click', () => {
         message.innerText = "Camera is not available.";
         return;
     }
-
+    // Detect mobile devices
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
     const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, canvas.width, canvas.height); // Draw video frame to canvas
-    capturedImage = canvas.toDataURL('image/jpeg'); // Convert captured image to data URL
+    if (isMobile) {
+        // For mobile devices, adjust for better face detection
+        const videoWidth = video.videoWidth;
+        const videoHeight = video.videoHeight;
+        const scale = Math.min(canvas.width / videoWidth, canvas.height / videoHeight);
+        
+        // Center the image in the canvas
+        const xOffset = (canvas.width - videoWidth * scale) / 2;
+        const yOffset = (canvas.height - videoHeight * scale) / 2;
+        
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(
+            video, 
+            0, 0, videoWidth, videoHeight, 
+            xOffset, yOffset, videoWidth * scale, videoHeight * scale
+        );
+    } else {
+        // For desktop, use standard method
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    }
+    
+    capturedImage = canvas.toDataURL('image/jpeg', 0.9); // Higher quality for better detection
     message.innerText = 'Image captured successfully. Ready to login.';
 });
 

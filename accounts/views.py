@@ -1,4 +1,3 @@
-from math import exp
 import face_recognition
 import base64
 from django.shortcuts import render, redirect
