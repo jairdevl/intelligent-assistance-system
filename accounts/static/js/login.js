@@ -10,7 +10,6 @@ let capturedImage = null;
 navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
         video.srcObject = stream;
-        message.innerText = "Camera enabled successfully.";
     })
     .catch((err) => {
         console.error('Error accessing camera:', err);
