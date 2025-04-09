@@ -21,19 +21,42 @@ h2 {
     font-size: 30px;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-
 #camera-container {
     margin-bottom: 20px;
     text-align: center;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#entry-button, #exit-button {
+    width: 12px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    
+}
+
+#entry-bn {
+    background-color: #28a745;
+}
+
+#entry-btn:hover {
+    background-color: #1e7430;
+}
+
+#exit-btn {
+    background-color: #ff0000;
+}
+
+#exit-btn:hover {
+    background-color: #b30000;
 }
 
 #video {
@@ -44,7 +67,7 @@ input[type="text"] {
 button[type="submit"] {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 4px;
@@ -54,26 +77,29 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #1e7430;
 }
 
-canvas {
-    display: none;
-}
-
-#Capture-button {
+button[type="button"] {
     width: 100%;
     padding: 12px;
-    background-color: #4CAF50;
+    background-color: #ff0000;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 10px;
 }
 
-#Capture-button:hover {
-    background-color: #45a049;
+button[type="button"]:hover {
+    background-color: #b30000;
+}
+
+
+
+canvas {
+    display: none;
 }
 
 #message {
